@@ -1,0 +1,3 @@
+[submodule "frameworks/yolov9"]
+	path = frameworks/yolov9
+	url = git@github.com:WongKinYiu/yolov9.git
