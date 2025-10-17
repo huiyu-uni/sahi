@@ -23,6 +23,19 @@ from sahi.utils.cv import visualize_object_predictions
 from typing import Generator, List, Optional, Union
 import time
 
+
+# binary class
+# CATEGORY_MAPPING = {
+#     "0": "moth",
+#     "1": "non-moth" 
+# }
+
+
+# single class
+CATEGORY_MAPPING = {
+    "0": "insect",
+}
+
 POSTPROCESS_NAME_TO_CLASS = {
     "GREEDYNMM": GreedyNMMPostprocess,
     "NMM": NMMPostprocess,
@@ -60,8 +73,8 @@ def create_object_prediction_list_from_original_predictions(
             
             score = prediction[4]
             category_id = int(prediction[5])
-            # category_name = self.category_mapping[str(category_id)]
-            category_name = "insect"
+            category_name = CATEGORY_MAPPING[str(category_id)]
+            # category_name = "insect"
 
             # fix negative box coords
             bbox[0] = max(0, bbox[0])
@@ -237,7 +250,7 @@ def main(args):
     
     ### TODO: argparse 
     # Define post-process methods
-    postprocess_type = "NMS"
+    postprocess_type = "GREEDYNMM"
     postprocess_match_metric = "IOS"
     postprocess_match_threshold = args.slice_match_iou
     postprocess_class_agnostic = False
@@ -339,7 +352,8 @@ def main(args):
         text_th=2,      # Thickness of the text
         hide_labels=False,  # Set True to hide class labels
         hide_conf=False,    # Set True to hide confidence scores
-        color=(255, 0, 0),  # Custom color in RGB format (red in this example)
+        # color=(255, 0, 0),  # Custom color in RGB format (red in this example)
+        color=None,  # Custom color in RGB format (red in this example)
         output_dir=args.save_path,
         file_name="custom_visualization",
         export_format="jpg"  # Supports 'jpg' and 'png'

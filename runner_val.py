@@ -403,7 +403,7 @@ def main(args):
             
             ### TODO: argparse 
             # Define post-process methods
-            postprocess_type = "NMS"
+            postprocess_type = "GREEDYNMM"
             postprocess_match_metric = "IOS"
             postprocess_match_threshold = args.slice_match_iou
             postprocess_class_agnostic = False
